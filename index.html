@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>يوم خديجة</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <style>
         /* ألوان أطفال مبهجة جداً */
         :root {
-            --bg-color: #87ceeb; 
-            --bg-gradient-center: #ffb6c1; 
+            --bg-color: #87ceeb; /* لبني فاتح */
+            --bg-gradient-center: #ffb6c1; /* بينك بناتي */
             --text-main: #2c3e50; 
             --text-muted: #e74c3c; 
-            --primary: #ff1493; 
-            --secondary: #ff8c00; 
-            --gold: #ffd700; 
+            --primary: #ff1493; /* بينك فاقع */
+            --secondary: #ff8c00; /* برتقالي */
+            --gold: #ffd700; /* أصفر دهبي */
         }
 
         body {
@@ -28,13 +29,13 @@
             text-align: center;
         }
 
-        /* بلالين وأشكال بتطير في الخلفية */
+        /* أشكال طايرة في الخلفية */
         .stars-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: -1; overflow: hidden;
         }
         .floating-item {
-            position: absolute; opacity: 0.8;
+            position: absolute; opacity: 0.7;
             animation: floatUp linear infinite;
         }
         @keyframes floatUp {
@@ -47,14 +48,14 @@
             min-height: 100vh; display: flex; flex-direction: column;
             align-items: center; justify-content: center; width: 100%;
             position: absolute; top: 0; left: 0;
-            opacity: 0; pointer-events: none; transition: opacity 0.8s ease-in-out;
+            opacity: 0; pointer-events: none; transition: opacity 1s ease-in-out;
             z-index: 1; padding: 20px 0; box-sizing: border-box;
         }
         .section.active {
             opacity: 1; pointer-events: auto; position: relative; z-index: 10;
         }
 
-        /* زراير مدورة وألوانها فاقعة ومفرحة */
+        /* زراير مدورة وألوانها فاقعة */
         .btn-outline {
             background: var(--primary);
             border: 3px solid white;
@@ -100,21 +101,47 @@
             50% { transform: translateY(-25px); filter: drop-shadow(0 15px 15px rgba(0,0,0,0.3)); }
         }
 
+        /* =======================================
+           شكل عرض الصور الجديد (مبهج جداً للأطفال)
+           ======================================= */
+        .fun-grid {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;
+            max-width: 850px; margin: 0 auto; padding: 20px;
+        }
+        .fun-photo {
+            background: white; padding: 10px; border-radius: 20px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+            width: calc(25% - 20px); min-width: 90px;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* إطار منقط ومشرشر مبهج */
+            border: 4px dashed var(--primary);
+        }
+        /* تلوين الإطارات بألوان مختلفة */
+        .fun-photo:nth-child(even) { border-color: var(--secondary); }
+        .fun-photo:nth-child(3n) { border-color: var(--gold); border-style: dotted; }
+        
+        .fun-photo img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 12px; }
+        
+        .fun-photo:hover {
+            transform: scale(1.2) rotate(0deg) !important;
+            z-index: 100; box-shadow: 0 15px 30px rgba(255, 20, 147, 0.5);
+        }
+
         /* صور الجنب */
         .side-photo {
-            position: absolute; background: white; padding: 5px 5px 20px 5px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3); border-radius: 10px;
-            width: 80px; z-index: 5; opacity: 0.9;
+            position: absolute; background: white; padding: 8px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3); border-radius: 50%;
+            width: 75px; z-index: 5; opacity: 0.9;
             animation: floatSide 3s infinite ease-in-out alternate;
-            border: 2px solid var(--primary);
+            border: 3px solid var(--primary);
         }
-        .side-photo img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 5px; }
+        .side-photo:nth-child(even) { border-color: var(--secondary); }
+        .side-photo img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 50%; }
         
         .sp-1 { top: 10%; left: 5%; --rot: -15deg; animation-delay: 0s; }
         .sp-2 { top: 35%; left: 10%; --rot: 10deg; animation-delay: 1s; }
         .sp-3 { top: 60%; left: 5%; --rot: -5deg; animation-delay: 0.5s; }
         .sp-4 { top: 85%; left: 10%; --rot: 12deg; animation-delay: 1.5s; }
-        
         .sp-5 { top: 15%; right: 5%; --rot: 15deg; animation-delay: 0.2s; }
         .sp-6 { top: 40%; right: 8%; --rot: -10deg; animation-delay: 1.2s; }
         .sp-7 { top: 65%; right: 5%; --rot: 8deg; animation-delay: 0.8s; }
@@ -123,27 +150,6 @@
         @keyframes floatSide {
             0% { transform: translateY(0) rotate(var(--rot)); }
             100% { transform: translateY(-20px) rotate(calc(var(--rot) + 10deg)); }
-        }
-        
-        @media(max-width: 500px) { .side-photo { width: 65px; } }
-
-        /* شبكة الذكريات */
-        .polaroid-grid {
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;
-            max-width: 800px; margin: 0 auto; padding: 20px;
-        }
-        .polaroid {
-            background: white; padding: 8px 8px 30px 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2); border-radius: 10px;
-            width: calc(25% - 20px); min-width: 90px;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 2px solid var(--gold);
-        }
-        .polaroid img { width: 100%; aspect-ratio: 1/1.1; object-fit: cover; border-radius: 5px; }
-        
-        .polaroid:hover {
-            transform: scale(1.2) rotate(0deg) !important;
-            z-index: 100; box-shadow: 0 15px 30px rgba(255, 20, 147, 0.5);
         }
 
         .hidden-btn { opacity: 0; pointer-events: none; transition: 1.5s; }
@@ -160,7 +166,6 @@
         }
         #music-toggle.playing { background: var(--primary); border-color: white; }
 
-        /* تنسيق الرسالة الآلية */
         .typewriter-title { text-align: center; color: var(--primary); font-weight: 800; font-size: 2rem; margin-bottom: 20px; text-shadow: 1px 1px 0 white; }
         .typewriter-body { text-align: right; font-weight: 600; font-size: 1.2rem; line-height: 2; }
     </style>
@@ -182,7 +187,7 @@
         </p>
         
         <input type="text" id="pass-input" class="pass-input" placeholder="مثال: 11/9 أو 2022" dir="rtl">
-        <p id="error-msg" style="color: white; display: none; font-size: 1.1rem; font-weight: bold; margin-top: 15px; background: var(--text-muted); padding: 5px 20px; border-radius: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.2);">الرمز غلط يا حبيبتي.. جربي تاني!</p>
+        <p id="error-msg" style="color: white; display: none; font-size: 1.1rem; font-weight: bold; margin-top: 15px; background: var(--text-muted); padding: 5px 20px; border-radius: 20px;">الرمز غلط يا حبيبتي.. جربي تاني!</p>
         
         <button class="btn-outline" onclick="checkPassword()">✨ افتحي المفاجأة ✨</button>
     </div>
@@ -217,7 +222,7 @@
         <h1 class="main-title" style="font-size: 3.5rem; margin-bottom: 30px;">Happy Birthday</h1>
         
         <div id="typewriter-container" style="background: rgba(255,255,255,0.8); padding: 30px; border-radius: 25px; border: 3px solid var(--primary); min-height: 250px; width: 100%; box-shadow: 0 10px 20px rgba(0,0,0,0.1);" dir="rtl">
-            </div>
+        </div>
 
         <button class="btn-outline hidden-btn" id="btn-memories" onclick="nextSec('sec-letter', 'sec-memories')">ذكرياتنا الحلوة ☁️</button>
     </div>
@@ -226,26 +231,39 @@
         <h1 class="main-title" style="font-size: 3.5rem; margin-bottom: 5px;">Our Memories</h1>
         <p class="subtitle">📸 أحلى لحظات دودو العسل 📸</p>
         
-        <div class="polaroid-grid">
-            <div class="polaroid" style="transform: rotate(-6deg);"><img src="photo9.jpg"></div>
-            <div class="polaroid" style="transform: rotate(4deg);"><img src="photo10.jpg"></div>
-            <div class="polaroid" style="transform: rotate(-3deg);"><img src="photo11.jpg"></div>
-            <div class="polaroid" style="transform: rotate(7deg);"><img src="photo12.jpg"></div>
-            <div class="polaroid" style="transform: rotate(-5deg);"><img src="photo13.jpg"></div>
-            <div class="polaroid" style="transform: rotate(2deg);"><img src="photo14.jpg"></div>
-            <div class="polaroid" style="transform: rotate(6deg);"><img src="photo15.jpg"></div>
-            <div class="polaroid" style="transform: rotate(-4deg);"><img src="photo16.jpg"></div>
-            <div class="polaroid" style="transform: rotate(-7deg);"><img src="photo17.jpg"></div>
-            <div class="polaroid" style="transform: rotate(5deg);"><img src="photo18.jpg"></div>
-            <div class="polaroid" style="transform: rotate(-2deg);"><img src="photo19.jpg"></div>
-            <div class="polaroid" style="transform: rotate(8deg);"><img src="photo20.jpg"></div>
-            <div class="polaroid" style="transform: rotate(-6deg);"><img src="photo21.jpg"></div>
-            <div class="polaroid" style="transform: rotate(3deg);"><img src="photo22.jpg"></div>
-            <div class="polaroid" style="transform: rotate(7deg);"><img src="photo23.jpg"></div>
-            <div class="polaroid" style="transform: rotate(-5deg);"><img src="photo24.jpg"></div>
+        <div class="fun-grid">
+            <div class="fun-photo" style="transform: rotate(-6deg);"><img src="photo9.jpg"></div>
+            <div class="fun-photo" style="transform: rotate(4deg);"><img src="photo10.jpg"></div>
+            <div class="fun-photo" style="transform: rotate(-3deg);"><img src="photo11.jpg"></div>
+            <div class="fun-photo" style="transform: rotate(7deg);"><img src="photo12.jpg"></div>
+            <div class="fun-photo" style="transform: rotate(-5deg);"><img src="photo13.jpg"></div>
+            <div class="fun-photo" style="transform: rotate(2deg);"><img src="photo14.jpg"></div>
+            <div class="fun-photo" style="transform: rotate(6deg);"><img src="photo15.jpg"></div>
+            <div class="fun-photo" style="transform: rotate(-4deg);"><img src="photo16.jpg"></div>
+            <div class="fun-photo" style="transform: rotate(-7deg);"><img src="photo17.jpg"></div>
+            <div class="fun-photo" style="transform: rotate(5deg);"><img src="photo18.jpg"></div>
+            <div class="fun-photo" style="transform: rotate(-2deg);"><img src="photo19.jpg"></div>
+            <div class="fun-photo" style="transform: rotate(8deg);"><img src="photo20.jpg"></div>
+            <div class="fun-photo" style="transform: rotate(-6deg);"><img src="photo21.jpg"></div>
+            <div class="fun-photo" style="transform: rotate(3deg);"><img src="photo22.jpg"></div>
+            <div class="fun-photo" style="transform: rotate(7deg);"><img src="photo23.jpg"></div>
+            <div class="fun-photo" style="transform: rotate(-5deg);"><img src="photo24.jpg"></div>
         </div>
 
-        <button class="btn-outline" onclick="nextSec('sec-memories', 'sec-wishes')">أمنياتي ليكي ✨</button>
+        <button class="btn-outline" onclick="nextSec('sec-memories', 'sec-video')">شوفى الفيديو 🎬</button>
+    </div>
+
+    <div id="sec-video" class="section">
+        <h1 class="main-title" style="font-size: 3.5rem; margin-bottom: 5px;">A Moment For You</h1>
+        <p class="subtitle">✨ a special video message ✨</p>
+        
+        <div style="max-width: 500px; width: 90%; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border-radius: 20px; overflow: hidden; border: 4px dashed var(--primary); background: white; padding: 5px;">
+            <video id="myVideo" controls style="width: 100%; display: block; border-radius: 15px;">
+                <source src="video1.mp4" type="video/mp4">
+            </video>
+        </div>
+        
+        <button class="btn-outline" onclick="nextSec('sec-video', 'sec-wishes')">أمنياتي ليكي ✨</button>
     </div>
 
     <div id="sec-wishes" class="section" style="padding: 20px; max-width: 600px; margin: 0 auto;">
@@ -278,7 +296,7 @@
     </div>
 
     <script>
-        // توليد البلالين والحلويات
+        // الأشكال الطايرة
         const starsContainer = document.getElementById('stars');
         const emojis = ['🎈', '🎀', '🧸', '💖', '🍭', '🦄', '🎉'];
         for (let i = 0; i < 40; i++) {
@@ -293,118 +311,80 @@
             starsContainer.appendChild(star);
         }
 
-        // دالة التنقل البسيطة المضمونة
+        // التنقل
         function nextSec(currentId, nextId) {
             document.getElementById(currentId).classList.remove('active');
             setTimeout(function() {
-                window.scrollTo(0, 0); // رفع الشاشة للأعلى
+                window.scrollTo(0, 0);
                 document.getElementById(nextId).classList.add('active');
-                
-                // تشغيل الكتابة لما نوصل لصفحة الرسالة
-                if (nextId === 'sec-letter') {
-                    startTypewriter();
-                }
-                if (nextId === 'sec-outro') {
-                    startOutroAnimation();
-                }
+                if (nextId === 'sec-letter') startTypewriter();
+                if (nextId === 'sec-outro') startOutroAnimation();
             }, 800); 
         }
 
-        // دالة الزرار الأساسية (فحص الباسورد)
+        // فحص الباسورد
         function checkPassword() {
             var passInput = document.getElementById('pass-input');
+            if (!passInput) return;
+            var pass = passInput.value.toLowerCase().trim();
             var errorMsg = document.getElementById('error-msg');
             
-            if (!passInput) return; // حماية إضافية
-            
-            var pass = passInput.value.toLowerCase().trim();
-            
-            // الباسوردات المقبولة لخديجة
             if (pass.includes('11') || pass.includes('١١') || pass.includes('9') || pass.includes('٩') || pass.includes('2022') || pass.includes('k') || pass.includes('خ')) {
                 errorMsg.style.display = 'none';
                 document.getElementById('music-toggle').style.display = 'flex';
                 
-                // النقل للصفحة التانية مباشرة
+                try {
+                    if(typeof confetti !== 'undefined'){
+                        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                    }
+                } catch(e) {}
+                
                 nextSec('sec-password', 'sec-gift');
             } else {
-                // إظهار رسالة الخطأ لو الباسورد مش موجود
                 errorMsg.style.display = 'block';
             }
         }
 
-        // دالة فتح الهدية
+        // فتح الهدية
         function openGift() {
+            try {
+                if(typeof confetti !== 'undefined'){
+                    var end = Date.now() + (2 * 1000);
+                    var colors = ['#ff1493', '#ff8c00', '#ffd700', '#87ceeb'];
+                    (function frame() {
+                        confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
+                        confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
+                        if (Date.now() < end) { requestAnimationFrame(frame); }
+                    }());
+                }
+            } catch(e) {}
+            
             var audio = document.getElementById('bgMusic');
             var musicBtn = document.getElementById('music-toggle');
-            
             if (audio) {
                 var playPromise = audio.play();
                 if (playPromise !== undefined) {
-                    playPromise.then(function() {
-                        musicBtn.classList.add('playing');
-                    }).catch(function(error) {
-                        console.log('Audio blocked by browser');
-                    });
+                    playPromise.then(function() { musicBtn.classList.add('playing'); }).catch(function(e) {});
                 }
             }
-            
-            setTimeout(function() { 
-                nextSec('sec-gift', 'sec-intro'); 
-            }, 800); 
+            setTimeout(function() { nextSec('sec-gift', 'sec-intro'); }, 800); 
         }
 
-        // زرار الموسيقى اللي فوق
+        // الموسيقى
         function toggleMusic() {
             var audio = document.getElementById('bgMusic');
             var musicBtn = document.getElementById('music-toggle');
             if (!audio) return;
             if (audio.paused) {
-                audio.play(); 
-                musicBtn.classList.add('playing');
+                audio.play(); musicBtn.classList.add('playing');
             } else {
-                audio.pause(); 
-                musicBtn.classList.remove('playing');
+                audio.pause(); musicBtn.classList.remove('playing');
             }
         }
 
-        // نظام الكتابة الآلية للرسالة
-        var titleText = "يا خديجة يا قمر، يا أحلى بنوتة خطفت قلبي! ❤️";
-        var bodyText = "إنتِ مش بس بنت خالي، إنتِ العشق كله يا موزتي الصغيرة. كل ما بشوف ضحكتك قلبي بيدق، بجد أنا دايب فيكي وفي جمالك.\n\nبكرا تكبري وتبقي عروستي القمر اللي مفيش في حلاوتها اتنين. كل سنة وأنتِ أحلى حاجة في دنيتي، بموت فيكي يا قلبي! 🎉🥳🎈🍬";
-        
-        var isTyping = false;
-
-        function startTypewriter() {
-            if (isTyping) return;
-            isTyping = true;
-            var container = document.getElementById('typewriter-container');
-            if (!container) return;
-
-            container.innerHTML = '<div id="tw-title" class="typewriter-title"></div><div id="tw-body" class="typewriter-body"></div>';
-            
-            var titleEl = document.getElementById('tw-title');
-            var bodyEl = document.getElementById('tw-body');
-            
-            var i = 0;
-            var j = 0;
-
-            function typeTitle() {
-                if (i < titleText.length) {
-                    titleEl.innerHTML += titleText.charAt(i);
-                    i++;
-                    setTimeout(typeTitle, 40);
-                } else {
-                    setTimeout(typeBody, 400);
-                }
-            }
-
-            function typeBody() {
-                if (j < bodyText.length) {
-                    var char = bodyText.charAt(j);
-                    bodyEl.innerHTML += (char === '\n') ? '<br>' : char;
-                    j++;
-                    setTimeout(typeBody, 35);
-                } else {
-                    var btnMem = document.getElementById('btn-memories');
-                    if (btnMem) btnMem.classList.add('show');
-                }
-      
+        // إيقاف الموسيقى مع الفيديو (عشان كده رجعنا صفحة الفيديو زي موقع روان)
+        var myVideo = document.getElementById('myVideo');
+        var bgMusic = document.getElementById('bgMusic');
+        var musicBtn = document.getElementById('music-toggle');
+        if(myVideo && bgMusic) {
+            myVideo.addEventListener('p
