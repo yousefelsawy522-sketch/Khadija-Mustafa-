@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>يوم أميرتنا خديجة</title>
-    <!-- استدعاء الخطوط -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800&family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* ألوان ديزني المبهجة */
         :root {
             --bg-color: #ffe6ea; 
             --bg-gradient-center: #e0c3fc; 
@@ -77,19 +75,17 @@
             text-shadow: 3px 3px 0px var(--white), 0 8px 15px rgba(255, 126, 179, 0.3); 
         }
 
-        /* 
-           تعديل المربع: بقى شفاف وظهر فوق النص!
-        */
+        /* حقل الباسورد (شفاف) */
         .pass-input {
-            background: rgba(255, 255, 255, 0.4); /* شفافية زي الإزاز */
-            backdrop-filter: blur(5px); /* تأثير بلور خفيف وراه */
+            background: rgba(255, 255, 255, 0.4); 
+            backdrop-filter: blur(5px); 
             border: 4px solid var(--secondary);
             color: var(--text-main); padding: 15px; border-radius: 30px; text-align: center;
             font-family: 'Cairo', sans-serif; font-size: 1.3rem; font-weight: bold; outline: none;
             width: 260px; margin-top: 20px; transition: 0.3s;
             box-shadow: 0 8px 15px rgba(176, 136, 249, 0.3);
             position: relative; 
-            z-index: 100; /* عشان يفضل دايماً فوق أي نص أو أشكال */
+            z-index: 100;
         }
         .pass-input::placeholder { color: rgba(94, 42, 107, 0.6); }
         .pass-input:focus { border-color: var(--primary); transform: scale(1.05); background: rgba(255, 255, 255, 0.7); }
@@ -104,9 +100,7 @@
             50% { transform: translateY(-20px); filter: drop-shadow(0 20px 15px rgba(0,0,0,0.2)); }
         }
 
-        /* 
-           تعديل صور الذكريات: الحجم كبر جداً!
-        */
+        /* صور الذكريات */
         .cute-grid {
             display: flex; flex-wrap: wrap; justify-content: center; gap: 25px;
             max-width: 950px; margin: 0 auto; padding: 20px;
@@ -114,7 +108,7 @@
         .cute-photo {
             background: var(--white); padding: 10px; border-radius: 25px;
             box-shadow: 0 10px 20px rgba(176, 136, 249, 0.3);
-            width: calc(33.33% - 25px); /* خليتها 3 صور في الصف عشان يبقوا كبار */
+            width: calc(33.33% - 25px); 
             min-width: 150px; 
             transition: 0.4s ease;
             border: 5px solid var(--primary);
@@ -124,13 +118,11 @@
         .cute-photo img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 18px; }
         .cute-photo:hover { transform: scale(1.2) translateY(-10px) !important; z-index: 100; box-shadow: 0 15px 30px rgba(255, 126, 179, 0.6); }
 
-        /* 
-           تعديل صور الجنب: الحجم كبر!
-        */
+        /* صور الجنب */
         .side-photo {
             position: absolute; background: var(--white); padding: 8px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.15); border-radius: 50%;
-            width: 95px; /* كبرت من 75 لـ 95 */
+            width: 95px; 
             z-index: 5; opacity: 0.9;
             animation: floatSide 3s infinite ease-in-out alternate;
             border: 5px solid var(--primary);
@@ -152,10 +144,9 @@
             100% { transform: translateY(-15px) rotate(calc(var(--rot) + 5deg)); }
         }
         
-        /* تظبيط الأحجام للموبايل */
         @media(max-width: 500px) { 
             .side-photo { width: 80px; } 
-            .cute-photo { width: calc(50% - 25px); min-width: 130px; } /* صورتين في الصف للموبايل عشان يبقوا واضحين جداً */
+            .cute-photo { width: calc(50% - 25px); min-width: 130px; } 
         }
 
         .hidden-btn { display: none; }
@@ -192,7 +183,7 @@
             اكتبي تاريخ ميلاد أحلى بنوتة.. 🗝️
         </p>
         
-        <input type="text" id="pass-input" class="pass-input" placeholder="مثال: 11/9 أو 2022" dir="rtl">
+        <input type="text" id="pass-input" class="pass-input" placeholder="مثال: 11/9/2022" dir="rtl">
         <p id="error-msg" style="color: white; display: none; font-size: 1rem; font-weight: bold; margin-top: 15px; background: var(--primary); padding: 5px 20px; border-radius: 20px; position: relative; z-index: 100;">الرمز غلط يا عسولة.. جربي تاني!</p>
         
         <button type="button" class="btn-outline" onclick="checkPassword()">✨ افتحي المفاجأة ✨</button>
@@ -219,7 +210,8 @@
         <p class="subtitle">💖 رسالة مخصوصة 💖</p>
         <h1 class="main-title" style="font-size: 4.5rem;">Your<br>Day</h1>
         
-        <p style="font-size: 1.3rem; font-weight: 800; color: var(--text-main); position: relative; z-index: 50; max-width: 500px; line-height: 1.8; margin-top: 20px; background: var(--white); padding: 20px; border-radius: 25px; border: 4px solid var(--secondary); box-shadow: 0 10px 20px rgba(176,136,249,0.2);" dir="rtl">
+        <!-- تعديل: خلينا المربع هنا شفاف زي الإزاز عشان يبين الصور من وراه -->
+        <p style="font-size: 1.3rem; font-weight: 800; color: var(--text-main); position: relative; z-index: 50; max-width: 500px; line-height: 1.8; margin-top: 20px; background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(6px); padding: 20px; border-radius: 25px; border: 4px solid var(--secondary); box-shadow: 0 10px 20px rgba(176,136,249,0.2);" dir="rtl">
             كل سنة وأنتِ منورة حياتنا يا خديجة.. ده أحلى يوم عشان اليوم اللي نورتي فيه الدنيا. يا أحلى وأجمل بنوتة في العيلة كلها! 👑🤍
         </p>
         
@@ -230,7 +222,8 @@
     <div id="sec-letter" class="section" style="padding: 20px; max-width: 750px; margin: 0 auto;">
         <h1 class="main-title" style="font-size: 3.5rem; margin-bottom: 30px;">Happy Birthday</h1>
         
-        <div id="typewriter-container" style="background: var(--white); padding: 30px; border-radius: 30px; border: 5px solid var(--primary); min-height: 250px; width: 100%; box-shadow: 0 10px 25px rgba(255,126,179,0.3); position: relative; z-index: 50;" dir="rtl">
+        <!-- تعديل: المربع ده كمان بقى شفاف عشان يبين أي حاجة بتطير وراه -->
+        <div id="typewriter-container" style="background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(6px); padding: 30px; border-radius: 30px; border: 5px solid var(--primary); min-height: 250px; width: 100%; box-shadow: 0 10px 25px rgba(255,126,179,0.3); position: relative; z-index: 50;" dir="rtl">
             <!-- النص هيتكتب هنا -->
         </div>
 
@@ -269,7 +262,7 @@
         <h1 class="main-title" style="font-size: 3.5rem; margin-bottom: 5px;">A Moment For You</h1>
         <p class="subtitle">✨ a special video message ✨</p>
         
-        <div style="max-width: 500px; width: 90%; margin: 0 auto; box-shadow: 0 10px 30px rgba(176,136,249,0.3); border-radius: 20px; overflow: hidden; border: 4px dashed var(--primary); background: var(--white); padding: 5px; position: relative; z-index: 50;">
+        <div style="max-width: 500px; width: 90%; margin: 0 auto; box-shadow: 0 10px 30px rgba(176,136,249,0.3); border-radius: 20px; overflow: hidden; border: 4px dashed var(--primary); background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(6px); padding: 5px; position: relative; z-index: 50;">
             <video id="myVideo" controls style="width: 100%; display: block; border-radius: 15px;">
                 <source src="video1.mp4" type="video/mp4">
             </video>
@@ -282,7 +275,8 @@
     <div id="sec-wishes" class="section" style="padding: 20px; max-width: 600px; margin: 0 auto;">
         <h1 class="main-title" style="font-size: 3.5rem; margin-bottom: 30px;">Birthday Wishes</h1>
         
-        <div style="background: var(--white); padding: 30px; border-radius: 30px; border: 5px solid var(--secondary); box-shadow: 0 10px 20px rgba(176,136,249,0.3); position: relative; z-index: 50;">
+        <!-- تعديل: مربع شفاف -->
+        <div style="background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(6px); padding: 30px; border-radius: 30px; border: 5px solid var(--secondary); box-shadow: 0 10px 20px rgba(176,136,249,0.3); position: relative; z-index: 50;">
             <p style="font-size: 1.6rem; font-weight: 800; text-align: center; color: var(--secondary);">عيد ميلاد سعيد يا أميرتنا 👑</p>
             
             <p style="font-size: 1.2rem; line-height: 2; text-align: right; color: var(--text-main); font-weight: 700;" dir="rtl">
@@ -300,7 +294,7 @@
     <div id="sec-outro" class="section">
         <h1 id="outro-title" class="main-title" style="font-size: 4.5rem; transition: opacity 1s ease-in-out;">Happy Birthday</h1>
         
-        <p style="font-size: 1.3rem; font-weight: bold; color: var(--text-main); line-height: 2; margin-top: 20px; background: rgba(255,255,255,0.8); padding: 15px 25px; border-radius: 20px; position: relative; z-index: 50;" dir="rtl">
+        <p style="font-size: 1.3rem; font-weight: bold; color: var(--text-main); line-height: 2; margin-top: 20px; background: rgba(255,255,255,0.65); backdrop-filter: blur(6px); padding: 15px 25px; border-radius: 20px; position: relative; z-index: 50;" dir="rtl">
             شكراً لأنكِ أحلى بنوتة.<br>
             يا رب الهدية البسيطة دي تفرحك.
         </p>
@@ -309,8 +303,8 @@
         <button type="button" class="btn-outline" onclick="location.reload()">↻ عيدي من الأول</button>
     </div>
 
+    <!-- جافاسكريبت متين 100% -->
     <script>
-        // الأشكال الطايرة في الخلفية
         var starsContainer = document.getElementById('stars');
         var emojis = ['💖', '⭐', '🌸', '👑', '✨', '🎈'];
         for (var k = 0; k < 35; k++) {
@@ -325,7 +319,6 @@
             if (starsContainer) { starsContainer.appendChild(star); }
         }
 
-        // التنقل بين الصفحات
         function nextSec(currentId, nextId) {
             var currentElem = document.getElementById(currentId);
             var nextElem = document.getElementById(nextId);
@@ -338,7 +331,6 @@
             }, 800); 
         }
 
-        // فحص الباسورد
         function checkPassword() {
             var passInput = document.getElementById('pass-input');
             var errorMsg = document.getElementById('error-msg');
@@ -357,7 +349,6 @@
             }
         }
 
-        // فتح الهدية
         function openGift() {
             var audio = document.getElementById('bgMusic');
             var btn = document.getElementById('music-toggle');
@@ -372,7 +363,6 @@
             setTimeout(function() { nextSec('sec-gift', 'sec-intro'); }, 800); 
         }
 
-        // تشغيل الموسيقى
         function toggleMusic() {
             var audio = document.getElementById('bgMusic');
             var musicBtn = document.getElementById('music-toggle');
@@ -391,7 +381,6 @@
             }
         }
 
-        // كود الفيديو 
         var myVideo = document.getElementById('myVideo');
         var bgMusic = document.getElementById('bgMusic');
         var musicBtn = document.getElementById('music-toggle');
@@ -411,7 +400,6 @@
             });
         }
 
-        // رسالة خديجة
         var titleText = "يا خديجة يا قمر، يا أحلى أميرة صغيرة في العيلة كلها! 👑💖";
         var bodyText = "النهاردة أحلى يوم في السنة عشان ده يوم ميلادك يا عسولة. كل سنة وأنتِ طيبة وبتكبري قدام عينينا وبتملي البيت ضحك ولعب.\n\nيا رب دايماً أشوفك مبسوطة وناجحة وأحلى بنوتة في الدنيا، وتفضلي دايماً ضحكتك منورة حياتنا. بحبك جداً يا أحلى خديجة! 🎉🎂🎁🎈";
         
@@ -452,7 +440,6 @@
             }
         }
 
-        // شاشة النهاية
         var outroTitles = ["Happy Birthday", "Our Princess", "We Love You"];
         var titleIdx = 0;
         function startOutroAnimation() {
