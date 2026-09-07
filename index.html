@@ -4,15 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>يوم أميرتنا خديجة</title>
+    <!-- استدعاء الخطوط -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800&family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+    <!-- مكتبة الفرقعة -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <style>
+        /* ألوان عالم الأميرات ديزني */
         :root {
-            --bg-color: #ffe6ea; 
-            --bg-gradient-center: #e0c3fc; 
-            --text-main: #5e2a6b; 
-            --primary: #ff7eb3; 
-            --secondary: #b088f9; 
+            --bg-color: #ffe6ea; /* بينك بيبي فاتح */
+            --bg-gradient-center: #e0c3fc; /* موف فاتح لافندر */
+            --text-main: #5e2a6b; /* موف غامق */
+            --primary: #ff7eb3; /* بينك زاهي */
+            --secondary: #b088f9; /* موف زاهي */
             --white: #ffffff;
         }
 
@@ -26,6 +30,7 @@
             text-align: center;
         }
 
+        /* أشكال طايرة في الخلفية */
         .magic-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: -1; overflow: hidden;
@@ -40,17 +45,19 @@
             100% { transform: translateY(-20vh) scale(1.5) rotate(360deg); opacity: 0; }
         }
 
+        /* نظام الشاشات */
         .section {
             min-height: 100vh; display: flex; flex-direction: column;
             align-items: center; justify-content: center; width: 100%;
             position: absolute; top: 0; left: 0;
-            opacity: 0; pointer-events: none; transition: opacity 0.6s ease-in-out;
+            opacity: 0; pointer-events: none; transition: opacity 0.8s ease-in-out;
             z-index: 1; padding: 20px 0; box-sizing: border-box;
         }
         .section.active {
             opacity: 1; pointer-events: auto; position: relative; z-index: 10;
         }
 
+        /* زراير ديزني المبهجة */
         .btn-outline {
             background: var(--white);
             border: 4px solid var(--primary);
@@ -62,6 +69,7 @@
         }
         .btn-outline:hover { background: var(--primary); color: var(--white); transform: scale(1.1) translateY(-5px); }
 
+        /* النصوص */
         .subtitle {
             font-size: 1.3rem; font-weight: 800;
             color: var(--secondary); text-transform: uppercase;
@@ -75,6 +83,7 @@
             text-shadow: 3px 3px 0px var(--white), 0 8px 15px rgba(255, 126, 179, 0.3); 
         }
 
+        /* حقل الباسورد */
         .pass-input {
             background: var(--white); border: 4px solid var(--secondary);
             color: var(--text-main); padding: 15px; border-radius: 30px; text-align: center;
@@ -84,6 +93,7 @@
         }
         .pass-input:focus { border-color: var(--primary); transform: scale(1.05); }
 
+        /* حركة الهدية */
         .gift-icon {
             font-size: 8rem; margin: 20px 0; cursor: pointer;
             animation: bounceGift 1.5s infinite ease-in-out; transition: 0.3s;
@@ -94,23 +104,7 @@
             50% { transform: translateY(-20px); filter: drop-shadow(0 20px 15px rgba(0,0,0,0.2)); }
         }
 
-        .cute-grid {
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;
-            max-width: 900px; margin: 0 auto; padding: 20px;
-        }
-        .cute-photo {
-            background: var(--white); padding: 8px; border-radius: 25px;
-            box-shadow: 0 10px 20px rgba(176, 136, 249, 0.3);
-            width: calc(25% - 20px); min-width: 100px;
-            transition: 0.4s ease;
-            border: 4px solid var(--primary);
-        }
-        .cute-photo:nth-child(even) { border-color: var(--secondary); border-radius: 35px 10px 35px 10px; }
-        .cute-photo:nth-child(3n) { border-color: #ffd700; border-radius: 10px 35px 10px 35px; }
-        
-        .cute-photo img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 18px; }
-        .cute-photo:hover { transform: scale(1.15) translateY(-10px) !important; z-index: 100; box-shadow: 0 15px 30px rgba(255, 126, 179, 0.6); }
-
+        /* صور الجنب المدورة */
         .side-photo {
             position: absolute; background: var(--white); padding: 6px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.15); border-radius: 50%;
@@ -134,11 +128,29 @@
             0% { transform: translateY(0) rotate(var(--rot)); }
             100% { transform: translateY(-15px) rotate(calc(var(--rot) + 5deg)); }
         }
+        @media(max-width: 500px) { .side-photo { width: 65px; } }
 
-        .hidden-btn { display: none; }
-        .hidden-btn.show { display: block; animation: popIn 0.5s ease; margin-top: 30px; }
-        @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        /* شبكة الذكريات (ستايل ديزني كيوت جداً) */
+        .cute-grid {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;
+            max-width: 900px; margin: 0 auto; padding: 20px;
+        }
+        .cute-photo {
+            background: var(--white); padding: 8px; border-radius: 25px;
+            box-shadow: 0 10px 20px rgba(176, 136, 249, 0.3);
+            width: calc(25% - 20px); min-width: 100px;
+            transition: 0.4s ease;
+            border: 4px solid var(--primary);
+        }
+        .cute-photo:nth-child(even) { border-color: var(--secondary); border-radius: 35px 10px 35px 10px; }
+        .cute-photo:nth-child(3n) { border-color: #ffd700; border-radius: 10px 35px 10px 35px; }
+        .cute-photo img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 18px; }
+        .cute-photo:hover { transform: scale(1.15) translateY(-10px) !important; z-index: 100; box-shadow: 0 15px 30px rgba(255, 126, 179, 0.6); }
 
+        .hidden-btn { opacity: 0; pointer-events: none; transition: 1.5s; }
+        .hidden-btn.show { opacity: 1; pointer-events: auto; }
+
+        /* زرار الموسيقى */
         #music-toggle {
             position: fixed; top: 20px; right: 20px; z-index: 1000;
             background: var(--white); border: 3px solid var(--secondary);
@@ -149,6 +161,7 @@
         }
         #music-toggle.playing { background: var(--secondary); border-color: var(--white); }
 
+        /* تنسيق الرسالة */
         .typewriter-title { text-align: center; color: var(--primary); font-weight: 800; font-size: 2rem; margin-bottom: 20px; text-shadow: 2px 2px 0 var(--white); }
         .typewriter-body { text-align: right; font-weight: 600; font-size: 1.2rem; line-height: 2.2; }
     </style>
@@ -170,21 +183,17 @@
         </p>
         
         <input type="text" id="pass-input" class="pass-input" placeholder="مثال: 11/9 أو 2022" dir="rtl">
-        <p id="error-msg" style="color: white; display: none; font-size: 1rem; font-weight: bold; margin-top: 15px; background: var(--primary); padding: 5px 20px; border-radius: 20px;">التاريخ ده مش مظبوط يا عسولة.. جربي تاني!</p>
+        <p id="error-msg" style="color: white; display: none; font-size: 1rem; font-weight: bold; margin-top: 15px; background: var(--primary); padding: 5px 20px; border-radius: 20px;">الرمز غلط يا عسولة.. جربي تاني!</p>
         
-        <!-- هنا تم إصلاح الزرار وإضافة type="button" عشان ميطيرش الكود -->
+        <!-- الزرار الأصلي لروان -->
         <button type="button" class="btn-outline" onclick="checkPassword()">✨ افتحي المفاجأة ✨</button>
     </div>
 
     <!-- 2. شاشة الهدية -->
     <div id="sec-gift" class="section">
         <p class="subtitle">🎀 مفاجأة ليكي 🎀</p>
-        
-        <!-- الهدية بقت كلها قابلة للضغط بوضوح -->
-        <div onclick="openGift()" style="cursor: pointer; text-align: center;">
-            <div class="gift-icon">🎁</div>
-            <p style="font-size: 1.3rem; font-weight: bold; background: rgba(255,255,255,0.9); padding: 10px 25px; border-radius: 30px; color: var(--secondary); display: inline-block; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">دوسي هنا بقوة عشان الهدية تفتح 🎈</p>
-        </div>
+        <div class="gift-icon" onclick="openGift()">🎁</div>
+        <p style="font-size: 1.2rem; font-weight: bold; background: rgba(255,255,255,0.8); padding: 5px 20px; border-radius: 20px; color: var(--secondary);">دوسي على الهدية عشان نفتحها 🎈</p>
     </div>
 
     <!-- 3. شاشة الافتتاحية -->
@@ -243,10 +252,25 @@
             <div class="cute-photo" style="transform: rotate(-5deg);"><img src="photo24.jpg"></div>
         </div>
 
-        <button type="button" class="btn-outline" onclick="nextSec('sec-memories', 'sec-wishes')">أمنياتي ليكي ✨</button>
+        <!-- زرار روان الأصلي اللي بينقل للفيديو -->
+        <button type="button" class="btn-outline" onclick="nextSec('sec-memories', 'sec-video')">شوفى الفيديو 🎬</button>
     </div>
 
-    <!-- 6. شاشة الأمنيات -->
+    <!-- 6. شاشة الفيديو (رجعت زي روان بالظبط عشان البرمجة متضربش) -->
+    <div id="sec-video" class="section">
+        <h1 class="main-title" style="font-size: 3.5rem; margin-bottom: 5px;">A Moment For You</h1>
+        <p class="subtitle">✨ a special video message ✨</p>
+        
+        <div style="max-width: 500px; width: 90%; margin: 0 auto; box-shadow: 0 10px 30px rgba(176,136,249,0.3); border-radius: 20px; overflow: hidden; border: 4px dashed var(--primary); background: var(--white); padding: 5px;">
+            <video id="myVideo" controls style="width: 100%; display: block; border-radius: 15px;">
+                <source src="video1.mp4" type="video/mp4">
+            </video>
+        </div>
+        
+        <button type="button" class="btn-outline" onclick="nextSec('sec-video', 'sec-wishes')">أمنياتي ليكي ✨</button>
+    </div>
+
+    <!-- 7. شاشة الأمنيات -->
     <div id="sec-wishes" class="section" style="padding: 20px; max-width: 600px; margin: 0 auto;">
         <h1 class="main-title" style="font-size: 3.5rem; margin-bottom: 30px;">Birthday Wishes</h1>
         
@@ -264,7 +288,7 @@
         <button type="button" class="btn-outline" onclick="nextSec('sec-wishes', 'sec-outro')">في حاجة كمان ✨</button>
     </div>
 
-    <!-- 7. شاشة النهاية -->
+    <!-- 8. شاشة النهاية -->
     <div id="sec-outro" class="section">
         <h1 id="outro-title" class="main-title" style="font-size: 4.5rem; transition: opacity 1s ease-in-out;">Happy Birthday</h1>
         
@@ -277,13 +301,13 @@
         <button type="button" class="btn-outline" onclick="location.reload()">↻ عيدي من الأول</button>
     </div>
 
-    <!-- الجافاسكريبت مبني بطريقة قوية جداً (إجبارية) مفيهاش أي غلطة -->
+    <!-- أكواد الجافاسكريبت (نفس كود روان بالمللي) -->
     <script>
-        // الأشكال الطايرة
+        // الأشكال الطايرة في الخلفية
         var starsContainer = document.getElementById('stars');
         var emojis = ['💖', '⭐', '🌸', '👑', '✨', '🎈'];
-        for (var k = 0; k < 35; k++) {
-            var star = document.createElement('div');
+        for (let i = 0; i < 35; i++) {
+            let star = document.createElement('div');
             star.className = 'shape';
             star.innerText = emojis[Math.floor(Math.random() * emojis.length)];
             star.style.fontSize = (Math.random() * 20 + 20) + 'px';
@@ -294,93 +318,66 @@
             starsContainer.appendChild(star);
         }
 
-        // دالة التنقل
-        window.nextSec = function(currentId, nextId) {
-            var currentSec = document.getElementById(currentId);
-            var nextSec = document.getElementById(nextId);
-            if (currentSec) currentSec.className = 'section';
-            if (nextSec) nextSec.className = 'section active';
-            window.scrollTo(0, 0);
-            
-            if (nextId === 'sec-letter') { startTypewriter(); }
-            if (nextId === 'sec-outro') { startOutroAnimation(); }
-        };
+        // دالة التنقل الأصلية
+        function nextSec(currentId, nextId) {
+            document.getElementById(currentId).classList.remove('active');
+            setTimeout(function() {
+                window.scrollTo(0, 0); 
+                document.getElementById(nextId).classList.add('active');
+                
+                if (nextId === 'sec-letter') startTypewriter();
+                if (nextId === 'sec-outro') startOutroAnimation();
+            }, 800); 
+        }
 
-        // دالة فحص الباسورد (إجبارية ومستحيل تعلق)
-        window.checkPassword = function() {
-            var passInput = document.getElementById('pass-input');
-            var errorMsg = document.getElementById('error-msg');
-            
-            if (!passInput) return;
-            
-            var pass = passInput.value;
-            
-            // الباسوردات اللي بتفتح الموقع
-            if (pass.indexOf('11') !== -1 || pass.indexOf('9') !== -1 || pass.indexOf('2022') !== -1 || pass.indexOf('١١') !== -1 || pass.indexOf('٩') !== -1 || pass.indexOf('خ') !== -1) {
-                errorMsg.style.display = 'none';
-                
-                var musicToggle = document.getElementById('music-toggle');
-                if (musicToggle) musicToggle.style.display = 'flex';
-                
-                window.nextSec('sec-password', 'sec-gift');
+        // فحص الباسورد الأصلي
+        function checkPassword() {
+            var pass = document.getElementById('pass-input').value;
+            if (pass.includes('11') || pass.includes('9') || pass.includes('2022') || pass.includes('١١') || pass.includes('٩') || pass.includes('خ')) {
+                document.getElementById('error-msg').style.display = 'none';
+                document.getElementById('music-toggle').style.display = 'flex';
+                nextSec('sec-password', 'sec-gift');
             } else {
-                errorMsg.style.display = 'block';
+                document.getElementById('error-msg').style.display = 'block';
             }
-        };
+        }
 
-        // فتح الهدية
-        window.openGift = function() {
-            var audio = document.getElementById('bgMusic');
-            var musicBtn = document.getElementById('music-toggle');
+        // فتح الهدية الأصلي
+        function openGift() {
+            try {
+                if (typeof confetti !== 'undefined') {
+                    confetti({ particleCount: 150, spread: 80, origin: { y: 0.5 }, colors: ['#ffffff', '#ff7eb3', '#b088f9'] });
+                }
+            } catch(e) {}
             
+            var audio = document.getElementById('bgMusic');
+            var btn = document.getElementById('music-toggle');
             if (audio) {
                 var playPromise = audio.play();
                 if (playPromise !== undefined) {
                     playPromise.then(function() {
-                        if(musicBtn) musicBtn.classList.add('playing');
+                        if (btn) btn.classList.add('playing');
                     }).catch(function(e) {});
                 }
             }
-            window.nextSec('sec-gift', 'sec-intro');
-        };
+            setTimeout(function() { nextSec('sec-gift', 'sec-intro'); }, 800); 
+        }
 
-        // الموسيقى
-        window.toggleMusic = function() {
+        // تشغيل الموسيقى
+        function toggleMusic() {
             var audio = document.getElementById('bgMusic');
             var musicBtn = document.getElementById('music-toggle');
             if (!audio || !musicBtn) return;
             
             if (audio.paused) {
                 audio.play(); 
-                musicBtn.style.background = 'var(--primary)';
-                musicBtn.style.borderColor = 'var(--white)';
+                musicBtn.classList.add('playing');
             } else {
                 audio.pause(); 
-                musicBtn.style.background = 'var(--white)';
-                musicBtn.style.borderColor = 'var(--secondary)';
+                musicBtn.classList.remove('playing');
             }
-        };
+        }
 
-        // الكتابة الآلية
-        var titleText = "يا خديجة يا قمر، يا أحلى أميرة صغيرة في العيلة كلها! 👑💖";
-        var bodyText = "النهاردة أحلى يوم في السنة عشان ده يوم ميلادك يا عسولة. كل سنة وأنتِ طيبة وبتكبري قدام عينينا وبتملي البيت ضحك ولعب.\n\nيا رب دايماً أشوفك مبسوطة وناجحة وأحلى بنوتة في الدنيا، وتفضلي دايماً ضحكتك منورة حياتنا. بحبك جداً يا أحلى خديجة! 🎉🎂🎁🎈";
-        
-        var isTyping = false;
-        var i_t = 0;
-        var j_t = 0;
-
-        window.startTypewriter = function() {
-            if (isTyping) return;
-            isTyping = true;
-            var container = document.getElementById('typewriter-container');
-            if (!container) return;
-            container.innerHTML = '<div id="tw-title" class="typewriter-title"></div><div id="tw-body" class="typewriter-body"></div>';
-            typeTitle();
-        };
-
-        function typeTitle() {
-            if (i_t < titleText.length) {
-                document.getElementById('tw-title').innerHTML += titleText.charAt(i_t);
-                i_t++;
-                setTimeout(typeTitle, 40);
-           
+        // كود الفيديو الأصلي لروان (اللي كان بيعلق لما شيلناه)
+        var myVideo = document.getElementById('myVideo');
+        var bgMusic = document.getElementById('bgMusic'
