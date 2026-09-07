@@ -79,7 +79,7 @@
             text-shadow: 2px 2px 0 var(--primary), -2px -2px 0 var(--secondary), 0 5px 10px rgba(0,0,0,0.3); 
         }
 
-        /* حقل الباسورد (متكبر وواضح) */
+        /* حقل الباسورد */
         .pass-input {
             background: white; border: 3px solid var(--primary);
             color: var(--text-main); padding: 15px; border-radius: 20px; text-align: center;
@@ -100,7 +100,7 @@
             50% { transform: translateY(-25px); filter: drop-shadow(0 15px 15px rgba(0,0,0,0.3)); }
         }
 
-        /* صور الجنب (الصفحة الأولى) */
+        /* صور الجنب */
         .side-photo {
             position: absolute; background: white; padding: 5px 5px 20px 5px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.3); border-radius: 10px;
@@ -127,7 +127,7 @@
         
         @media(max-width: 500px) { .side-photo { width: 65px; } }
 
-        /* شبكة الذكريات (16 صورة) */
+        /* شبكة الذكريات */
         .polaroid-grid {
             display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;
             max-width: 800px; margin: 0 auto; padding: 20px;
@@ -189,8 +189,8 @@
 
     <div id="sec-gift" class="section">
         <p class="subtitle">🎀 مفاجأة ليكي 🎀</p>
-        <div class="gift-icon" onclick="openGift(this)">🎁</div>
-        <p style="font-size: 1.2rem; font-weight: bold; background: rgba(255,255,255,0.6); padding: 5px 15px; border-radius: 20px;">دوسي على الهدية عشان نولعها 🎊</p>
+        <div class="gift-icon" onclick="openGift()">🎁</div>
+        <p style="font-size: 1.2rem; font-weight: bold; background: rgba(255,255,255,0.6); padding: 5px 15px; border-radius: 20px;">دوسي على الهدية عشان نفتحها 🎊</p>
     </div>
 
     <div id="sec-intro" class="section" style="padding: 20px 0;">
@@ -277,10 +277,8 @@
         <button class="btn-outline" onclick="location.reload()">↻ عيدي من الأول</button>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
     <script>
-        // بلالين وحلويات طايرة في الخلفية
+        // بلالين وحلويات طايرة
         const starsContainer = document.getElementById('stars');
         const emojis = ['🎈', '🎀', '🧸', '💖', '🍭', '🦄', '🎉'];
         for (let i = 0; i < 40; i++) {
@@ -306,43 +304,30 @@
             }, 1000); 
         }
 
-        // دالة فحص الباسورد 
+        // دالة فحص الباسورد (بسيطة ومستحيل تعلق)
         function checkPassword() {
             let passInput = document.getElementById('pass-input');
-            if (!passInput) return;
-            let pass = passInput.value.toLowerCase();
+            if (!passInput) return; 
             
-            // الباسورد: 11، 9، 2022، خ، k
+            let pass = passInput.value.toLowerCase().trim();
+            
+            // لو المربع فاضي أو الباسورد غلط
+            if (pass === '') {
+                document.getElementById('error-msg').style.display = 'block';
+                return;
+            }
+
             if (pass.includes('11') || pass.includes('١١') || pass.includes('9') || pass.includes('٩') || pass.includes('2022') || pass.includes('k') || pass.includes('خ')) {
                 document.getElementById('error-msg').style.display = 'none';
                 document.getElementById('music-toggle').style.display = 'flex';
-                
-                try {
-                    if (typeof confetti === "function") {
-                        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-                    }
-                } catch(e) { console.log(e); }
-                
                 nextSec('sec-password', 'sec-gift');
             } else {
                 document.getElementById('error-msg').style.display = 'block';
             }
         }
 
-        // دالة فتح الهدية وتشغيل الأغنية
-        function openGift(el) {
-            try {
-                if (typeof confetti === "function") {
-                    var end = Date.now() + (2 * 1000);
-                    var colors = ['#ff1493', '#ff8c00', '#ffd700', '#87ceeb'];
-                    (function frame() {
-                        confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
-                        confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
-                        if (Date.now() < end) { requestAnimationFrame(frame); }
-                    }());
-                }
-            } catch(e) { console.log(e); }
-            
+        // دالة فتح الهدية
+        function openGift() {
             let audio = document.getElementById('bgMusic');
             let musicBtn = document.getElementById('music-toggle');
             
@@ -353,10 +338,10 @@
                 }
             }
             
-            setTimeout(() => { nextSec('sec-gift', 'sec-intro'); }, 1500); 
+            setTimeout(() => { nextSec('sec-gift', 'sec-intro'); }, 800); 
         }
 
-        // زرار التحكم في الموسيقى
+        // زرار الموسيقى
         function toggleMusic() {
             let audio = document.getElementById('bgMusic');
             let musicBtn = document.getElementById('music-toggle');
@@ -368,7 +353,7 @@
             }
         }
 
-        // الرسالة اللي طلبتها بالحرف 
+        // الرسالة
         const titleText = "يا خديجة يا قمر، يا أحلى بنوتة خطفت قلبي! ❤️";
         const bodyText = "إنتِ مش بس بنت خالي، إنتِ العشق كله يا موزتي الصغيرة. كل ما بشوف ضحكتك قلبي بيدق، بجد أنا دايب فيكي وفي جمالك.\n\nبكرا تكبري وتبقي عروستي القمر اللي مفيش في حلاوتها اتنين. كل سنة وأنتِ أحلى حاجة في دنيتي، بموت فيكي يا قلبي! 🎉🥳🎈🍬";
         
@@ -394,4 +379,31 @@
                     i++;
                     setTimeout(typeTitle, 40);
                 } else {
-              
+                    setTimeout(typeBody, 400);
+                }
+            }
+
+            function typeBody() {
+                if (j < bodyText.length) {
+                    let char = bodyText.charAt(j);
+                    bodyEl.innerHTML += (char === '\n') ? '<br>' : char;
+                    j++;
+                    setTimeout(typeBody, 35);
+                } else {
+                    let btnMem = document.getElementById('btn-memories');
+                    if (btnMem) btnMem.classList.add('show');
+                }
+            }
+
+            typeTitle();
+        }
+
+        // شاشة النهاية
+        const outroTitles = ["Happy Birthday", "My Little Princess", "Love You Forever"];
+        let titleIdx = 0;
+        function startOutroAnimation() {
+            const titleEl = document.getElementById('outro-title');
+            if (!titleEl) return;
+            setInterval(() => {
+                titleEl.style.opacity = 0;
+                setT
