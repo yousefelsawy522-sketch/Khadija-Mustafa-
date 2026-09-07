@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Her Special Day</title>
+    <title>يوم خديجة</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     
     <style>
@@ -47,7 +47,7 @@
             min-height: 100vh; display: flex; flex-direction: column;
             align-items: center; justify-content: center; width: 100%;
             position: absolute; top: 0; left: 0;
-            opacity: 0; pointer-events: none; transition: opacity 1s ease-in-out;
+            opacity: 0; pointer-events: none; transition: opacity 0.8s ease-in-out;
             z-index: 1; padding: 20px 0; box-sizing: border-box;
         }
         .section.active {
@@ -162,7 +162,7 @@
 
         /* تنسيق الرسالة الآلية */
         .typewriter-title { text-align: center; color: var(--primary); font-weight: 800; font-size: 2rem; margin-bottom: 20px; text-shadow: 1px 1px 0 white; }
-        .typewriter-body { text-align: right; font-weight: 600; font-size: 1.2rem; }
+        .typewriter-body { text-align: right; font-weight: 600; font-size: 1.2rem; line-height: 2; }
     </style>
 </head>
 <body>
@@ -182,7 +182,7 @@
         </p>
         
         <input type="text" id="pass-input" class="pass-input" placeholder="مثال: 11/9 أو 2022" dir="rtl">
-        <p id="error-msg" style="color: var(--text-muted); display: none; font-size: 1rem; font-weight: bold; margin-top: 10px; background: white; padding: 5px 15px; border-radius: 20px;">الرمز غلط يا حبيبتي.. جربي تاني</p>
+        <p id="error-msg" style="color: white; display: none; font-size: 1.1rem; font-weight: bold; margin-top: 15px; background: var(--text-muted); padding: 5px 20px; border-radius: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.2);">الرمز غلط يا حبيبتي.. جربي تاني!</p>
         
         <button class="btn-outline" onclick="checkPassword()">✨ افتحي المفاجأة ✨</button>
     </div>
@@ -278,7 +278,7 @@
     </div>
 
     <script>
-        // بلالين وحلويات طايرة
+        // توليد البلالين والحلويات
         const starsContainer = document.getElementById('stars');
         const emojis = ['🎈', '🎀', '🧸', '💖', '🍭', '🦄', '🎉'];
         for (let i = 0; i < 40; i++) {
@@ -293,85 +293,99 @@
             starsContainer.appendChild(star);
         }
 
-        // التنقل والرجوع لأعلى الصفحة
+        // دالة التنقل البسيطة المضمونة
         function nextSec(currentId, nextId) {
             document.getElementById(currentId).classList.remove('active');
-            setTimeout(() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(function() {
+                window.scrollTo(0, 0); // رفع الشاشة للأعلى
                 document.getElementById(nextId).classList.add('active');
-                if (nextId === 'sec-letter') startTypewriter();
-                if (nextId === 'sec-outro') startOutroAnimation();
-            }, 1000); 
+                
+                // تشغيل الكتابة لما نوصل لصفحة الرسالة
+                if (nextId === 'sec-letter') {
+                    startTypewriter();
+                }
+                if (nextId === 'sec-outro') {
+                    startOutroAnimation();
+                }
+            }, 800); 
         }
 
-        // دالة فحص الباسورد (بسيطة ومستحيل تعلق)
+        // دالة الزرار الأساسية (فحص الباسورد)
         function checkPassword() {
-            let passInput = document.getElementById('pass-input');
-            if (!passInput) return; 
+            var passInput = document.getElementById('pass-input');
+            var errorMsg = document.getElementById('error-msg');
             
-            let pass = passInput.value.toLowerCase().trim();
+            if (!passInput) return; // حماية إضافية
             
-            // لو المربع فاضي أو الباسورد غلط
-            if (pass === '') {
-                document.getElementById('error-msg').style.display = 'block';
-                return;
-            }
-
+            var pass = passInput.value.toLowerCase().trim();
+            
+            // الباسوردات المقبولة لخديجة
             if (pass.includes('11') || pass.includes('١١') || pass.includes('9') || pass.includes('٩') || pass.includes('2022') || pass.includes('k') || pass.includes('خ')) {
-                document.getElementById('error-msg').style.display = 'none';
+                errorMsg.style.display = 'none';
                 document.getElementById('music-toggle').style.display = 'flex';
+                
+                // النقل للصفحة التانية مباشرة
                 nextSec('sec-password', 'sec-gift');
             } else {
-                document.getElementById('error-msg').style.display = 'block';
+                // إظهار رسالة الخطأ لو الباسورد مش موجود
+                errorMsg.style.display = 'block';
             }
         }
 
         // دالة فتح الهدية
         function openGift() {
-            let audio = document.getElementById('bgMusic');
-            let musicBtn = document.getElementById('music-toggle');
+            var audio = document.getElementById('bgMusic');
+            var musicBtn = document.getElementById('music-toggle');
             
             if (audio) {
-                let playPromise = audio.play();
+                var playPromise = audio.play();
                 if (playPromise !== undefined) {
-                    playPromise.then(() => { musicBtn.classList.add('playing'); }).catch(e => console.log('Auto-play blocked'));
+                    playPromise.then(function() {
+                        musicBtn.classList.add('playing');
+                    }).catch(function(error) {
+                        console.log('Audio blocked by browser');
+                    });
                 }
             }
             
-            setTimeout(() => { nextSec('sec-gift', 'sec-intro'); }, 800); 
+            setTimeout(function() { 
+                nextSec('sec-gift', 'sec-intro'); 
+            }, 800); 
         }
 
-        // زرار الموسيقى
+        // زرار الموسيقى اللي فوق
         function toggleMusic() {
-            let audio = document.getElementById('bgMusic');
-            let musicBtn = document.getElementById('music-toggle');
+            var audio = document.getElementById('bgMusic');
+            var musicBtn = document.getElementById('music-toggle');
             if (!audio) return;
             if (audio.paused) {
-                audio.play(); musicBtn.classList.add('playing');
+                audio.play(); 
+                musicBtn.classList.add('playing');
             } else {
-                audio.pause(); musicBtn.classList.remove('playing');
+                audio.pause(); 
+                musicBtn.classList.remove('playing');
             }
         }
 
-        // الرسالة
-        const titleText = "يا خديجة يا قمر، يا أحلى بنوتة خطفت قلبي! ❤️";
-        const bodyText = "إنتِ مش بس بنت خالي، إنتِ العشق كله يا موزتي الصغيرة. كل ما بشوف ضحكتك قلبي بيدق، بجد أنا دايب فيكي وفي جمالك.\n\nبكرا تكبري وتبقي عروستي القمر اللي مفيش في حلاوتها اتنين. كل سنة وأنتِ أحلى حاجة في دنيتي، بموت فيكي يا قلبي! 🎉🥳🎈🍬";
+        // نظام الكتابة الآلية للرسالة
+        var titleText = "يا خديجة يا قمر، يا أحلى بنوتة خطفت قلبي! ❤️";
+        var bodyText = "إنتِ مش بس بنت خالي، إنتِ العشق كله يا موزتي الصغيرة. كل ما بشوف ضحكتك قلبي بيدق، بجد أنا دايب فيكي وفي جمالك.\n\nبكرا تكبري وتبقي عروستي القمر اللي مفيش في حلاوتها اتنين. كل سنة وأنتِ أحلى حاجة في دنيتي، بموت فيكي يا قلبي! 🎉🥳🎈🍬";
         
-        let isTyping = false;
+        var isTyping = false;
 
         function startTypewriter() {
             if (isTyping) return;
             isTyping = true;
-            const container = document.getElementById('typewriter-container');
+            var container = document.getElementById('typewriter-container');
             if (!container) return;
 
             container.innerHTML = '<div id="tw-title" class="typewriter-title"></div><div id="tw-body" class="typewriter-body"></div>';
             
-            let titleEl = document.getElementById('tw-title');
-            let bodyEl = document.getElementById('tw-body');
+            var titleEl = document.getElementById('tw-title');
+            var bodyEl = document.getElementById('tw-body');
             
-            let i = 0;
-            let j = 0;
+            var i = 0;
+            var j = 0;
 
             function typeTitle() {
                 if (i < titleText.length) {
@@ -385,25 +399,12 @@
 
             function typeBody() {
                 if (j < bodyText.length) {
-                    let char = bodyText.charAt(j);
+                    var char = bodyText.charAt(j);
                     bodyEl.innerHTML += (char === '\n') ? '<br>' : char;
                     j++;
                     setTimeout(typeBody, 35);
                 } else {
-                    let btnMem = document.getElementById('btn-memories');
+                    var btnMem = document.getElementById('btn-memories');
                     if (btnMem) btnMem.classList.add('show');
                 }
-            }
-
-            typeTitle();
-        }
-
-        // شاشة النهاية
-        const outroTitles = ["Happy Birthday", "My Little Princess", "Love You Forever"];
-        let titleIdx = 0;
-        function startOutroAnimation() {
-            const titleEl = document.getElementById('outro-title');
-            if (!titleEl) return;
-            setInterval(() => {
-                titleEl.style.opacity = 0;
-                setT
+      
