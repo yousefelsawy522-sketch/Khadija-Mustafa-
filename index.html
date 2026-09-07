@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Her Special Day</title>
+    <!-- استدعاء الخطوط -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
@@ -173,8 +174,9 @@
     <div class="stars-container" id="stars"></div>
     <div id="music-toggle" onclick="toggleMusic()">🎵</div>
 
+    <!-- شاشة القفل -->
     <div id="sec-password" class="section active">
-        <p class="subtitle">🎈 عيد ميلاد العفريته الصغيره 🎈</p>
+        <p class="subtitle">🎈 عيد ميلاد العفريتة الصغيرة 🎈</p>
         <h1 class="main-title">Her Special Day</h1>
         <h1 class="main-title" style="font-size: 3rem;">is Coming</h1>
         
@@ -188,12 +190,14 @@
         <button class="btn-outline" onclick="checkPassword()">✨ افتحي المفاجأة ✨</button>
     </div>
 
+    <!-- شاشة الهدية -->
     <div id="sec-gift" class="section">
         <p class="subtitle">🎀 مفاجأة ليكي 🎀</p>
         <div class="gift-icon" onclick="openGift(this)">🎁</div>
         <p style="font-size: 1.2rem; font-weight: bold; background: rgba(255,255,255,0.6); padding: 5px 15px; border-radius: 20px;">دوسي على الهدية عشان نولعها 🎊</p>
     </div>
 
+    <!-- شاشة الافتتاحية -->
     <div id="sec-intro" class="section" style="padding: 20px 0;">
         <div class="side-photo sp-1"><img src="photo1.jpg"></div>
         <div class="side-photo sp-2"><img src="photo2.jpg"></div>
@@ -214,15 +218,18 @@
         <button class="btn-outline" onclick="nextSec('sec-intro', 'sec-letter')">💌 اقرأي رسالتي 💌</button>
     </div>
 
+    <!-- شاشة الرسالة (الكتابة الآلية) -->
     <div id="sec-letter" class="section" style="padding: 20px; max-width: 750px; margin: 0 auto;">
         <h1 class="main-title" style="font-size: 3.5rem; margin-bottom: 30px;">Happy Birthday</h1>
         
         <div id="typewriter-container" style="background: rgba(255,255,255,0.8); padding: 30px; border-radius: 25px; border: 3px solid var(--primary); min-height: 250px; width: 100%; box-shadow: 0 10px 20px rgba(0,0,0,0.1);" dir="rtl">
-            </div>
+            <!-- سيتم إضافة النص برمجياً هنا -->
+        </div>
 
         <button class="btn-outline hidden-btn" id="btn-memories" onclick="nextSec('sec-letter', 'sec-memories')">ذكرياتنا الحلوة ☁️</button>
     </div>
 
+    <!-- شاشة الذكريات -->
     <div id="sec-memories" class="section">
         <h1 class="main-title" style="font-size: 3.5rem; margin-bottom: 5px;">Our Memories</h1>
         <p class="subtitle">📸 أحلى لحظات دودو العسل 📸</p>
@@ -249,6 +256,7 @@
         <button class="btn-outline" onclick="nextSec('sec-memories', 'sec-wishes')">أمنياتي ليكي ✨</button>
     </div>
 
+    <!-- شاشة الأمنيات -->
     <div id="sec-wishes" class="section" style="padding: 20px; max-width: 600px; margin: 0 auto;">
         <h1 class="main-title" style="font-size: 3.5rem; margin-bottom: 30px;">Birthday Wishes</h1>
         
@@ -266,6 +274,7 @@
         <button class="btn-outline" onclick="nextSec('sec-wishes', 'sec-outro')">في حاجة كمان ✨</button>
     </div>
 
+    <!-- شاشة النهاية -->
     <div id="sec-outro" class="section">
         <h1 id="outro-title" class="main-title" style="font-size: 4rem; transition: opacity 1s ease-in-out;">Happy Birthday</h1>
         
@@ -278,6 +287,7 @@
         <button class="btn-outline" onclick="location.reload()">↻ عيدي من الأول</button>
     </div>
 
+    <!-- أكواد البرمجة (كاملة ومقفولة صح) -->
     <script>
         // بلالين وحلويات طايرة في الخلفية بدل النجوم
         const starsContainer = document.getElementById('stars');
@@ -306,14 +316,19 @@
         }
 
         function checkPassword() {
-            let pass = document.getElementById('pass-input').value.toLowerCase();
+            let passInput = document.getElementById('pass-input');
+            if (!passInput) return;
+            let pass = passInput.value.toLowerCase();
+            
             if (pass.includes('11') || pass.includes('١١') || pass.includes('9') || pass.includes('٩') || pass.includes('2022') || pass.includes('k') || pass.includes('خ')) {
                 document.getElementById('error-msg').style.display = 'none';
                 document.getElementById('music-toggle').style.display = 'flex';
                 
-                // حماية لكود الفرقعة
+                // حماية لكود الفرقعة عشان ميعملش مشكلة لو النت بطيء
                 try {
-                    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                    if (typeof confetti === "function") {
+                        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                    }
                 } catch(e) { console.log(e); }
                 
                 nextSec('sec-password', 'sec-gift');
@@ -325,20 +340,25 @@
         function openGift(el) {
             // حماية لكود الفرقعة الكبير
             try {
-                var end = Date.now() + (2 * 1000);
-                var colors = ['#ff1493', '#ff8c00', '#ffd700', '#87ceeb'];
-                (function frame() {
-                    confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
-                    confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
-                    if (Date.now() < end) { requestAnimationFrame(frame); }
-                }());
+                if (typeof confetti === "function") {
+                    var end = Date.now() + (2 * 1000);
+                    var colors = ['#ff1493', '#ff8c00', '#ffd700', '#87ceeb'];
+                    (function frame() {
+                        confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
+                        confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
+                        if (Date.now() < end) { requestAnimationFrame(frame); }
+                    }());
+                }
             } catch(e) { console.log(e); }
             
             let audio = document.getElementById('bgMusic');
             let musicBtn = document.getElementById('music-toggle');
-            let playPromise = audio.play();
-            if (playPromise !== undefined) {
-                playPromise.then(() => { musicBtn.classList.add('playing'); }).catch(e => console.log('Auto-play blocked'));
+            
+            if (audio) {
+                let playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => { musicBtn.classList.add('playing'); }).catch(e => console.log('Auto-play blocked'));
+                }
             }
             
             setTimeout(() => { nextSec('sec-gift', 'sec-intro'); }, 1500); 
@@ -347,6 +367,7 @@
         function toggleMusic() {
             let audio = document.getElementById('bgMusic');
             let musicBtn = document.getElementById('music-toggle');
+            if (!audio) return;
             if (audio.paused) {
                 audio.play(); musicBtn.classList.add('playing');
             } else {
@@ -354,7 +375,7 @@
             }
         }
 
-        // الرسالة اللي طلبتها بالحرف (فيها غزل وحب)
+        // الرسالة اللي طلبتها بالحرف 
         const titleText = "يا خديجة يا قمر، يا أحلى بنوتة خطفت قلبي! ❤️";
         const bodyText = "إنتِ مش بس بنت خالي، إنتِ العشق كله يا موزتي الصغيرة. كل ما بشوف ضحكتك قلبي بيدق، بجد أنا دايب فيكي وفي جمالك.\n\nبكرا تكبري وتبقي عروستي القمر اللي مفيش في حلاوتها اتنين. كل سنة وأنتِ أحلى حاجة في دنيتي، بموت فيكي يا قلبي! 🎉🥳🎈🍬";
         
@@ -364,29 +385,8 @@
             if (isTyping) return;
             isTyping = true;
             const container = document.getElementById('typewriter-container');
+            if (!container) return;
+
             container.innerHTML = '<div id="tw-title" class="typewriter-title"></div><div id="tw-body" class="typewriter-body"></div>';
             
-            let titleEl = document.getElementById('tw-title');
-            let bodyEl = document.getElementById('tw-body');
-            
-            let i = 0;
-            let j = 0;
-
-            function typeTitle() {
-                if (i < titleText.length) {
-                    titleEl.innerHTML += titleText.charAt(i);
-                    i++;
-                    setTimeout(typeTitle, 40);
-                } else {
-                    setTimeout(typeBody, 400);
-                }
-            }
-
-            function typeBody() {
-                if (j < bodyText.length) {
-                    let char = bodyText.charAt(j);
-                    bodyEl.innerHTML += (char === '\n') ? '<br>' : char;
-                    j++;
-                    setTimeout(typeBody, 35);
-                } else {
-          
+            let titleEl = document.getElement
