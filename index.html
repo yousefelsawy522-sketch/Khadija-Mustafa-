@@ -6,17 +6,15 @@
     <title>يوم أميرتنا خديجة</title>
     <!-- استدعاء الخطوط -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800&family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
-    <!-- مكتبة الفرقعة -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <style>
-        /* ألوان عالم الأميرات ديزني */
+        /* ألوان ديزني */
         :root {
-            --bg-color: #ffe6ea; /* بينك بيبي فاتح */
-            --bg-gradient-center: #e0c3fc; /* موف فاتح لافندر */
-            --text-main: #5e2a6b; /* موف غامق */
-            --primary: #ff7eb3; /* بينك زاهي */
-            --secondary: #b088f9; /* موف زاهي */
+            --bg-color: #ffe6ea; 
+            --bg-gradient-center: #e0c3fc; 
+            --text-main: #5e2a6b; 
+            --primary: #ff7eb3; 
+            --secondary: #b088f9; 
             --white: #ffffff;
         }
 
@@ -30,7 +28,6 @@
             text-align: center;
         }
 
-        /* أشكال طايرة في الخلفية */
         .magic-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: -1; overflow: hidden;
@@ -45,7 +42,6 @@
             100% { transform: translateY(-20vh) scale(1.5) rotate(360deg); opacity: 0; }
         }
 
-        /* نظام الشاشات */
         .section {
             min-height: 100vh; display: flex; flex-direction: column;
             align-items: center; justify-content: center; width: 100%;
@@ -57,7 +53,6 @@
             opacity: 1; pointer-events: auto; position: relative; z-index: 10;
         }
 
-        /* زراير ديزني المبهجة */
         .btn-outline {
             background: var(--white);
             border: 4px solid var(--primary);
@@ -69,7 +64,6 @@
         }
         .btn-outline:hover { background: var(--primary); color: var(--white); transform: scale(1.1) translateY(-5px); }
 
-        /* النصوص */
         .subtitle {
             font-size: 1.3rem; font-weight: 800;
             color: var(--secondary); text-transform: uppercase;
@@ -83,7 +77,6 @@
             text-shadow: 3px 3px 0px var(--white), 0 8px 15px rgba(255, 126, 179, 0.3); 
         }
 
-        /* حقل الباسورد */
         .pass-input {
             background: var(--white); border: 4px solid var(--secondary);
             color: var(--text-main); padding: 15px; border-radius: 30px; text-align: center;
@@ -93,7 +86,6 @@
         }
         .pass-input:focus { border-color: var(--primary); transform: scale(1.05); }
 
-        /* حركة الهدية */
         .gift-icon {
             font-size: 8rem; margin: 20px 0; cursor: pointer;
             animation: bounceGift 1.5s infinite ease-in-out; transition: 0.3s;
@@ -104,7 +96,22 @@
             50% { transform: translateY(-20px); filter: drop-shadow(0 20px 15px rgba(0,0,0,0.2)); }
         }
 
-        /* صور الجنب المدورة */
+        .cute-grid {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;
+            max-width: 900px; margin: 0 auto; padding: 20px;
+        }
+        .cute-photo {
+            background: var(--white); padding: 8px; border-radius: 25px;
+            box-shadow: 0 10px 20px rgba(176, 136, 249, 0.3);
+            width: calc(25% - 20px); min-width: 100px;
+            transition: 0.4s ease;
+            border: 4px solid var(--primary);
+        }
+        .cute-photo:nth-child(even) { border-color: var(--secondary); border-radius: 35px 10px 35px 10px; }
+        .cute-photo:nth-child(3n) { border-color: #ffd700; border-radius: 10px 35px 10px 35px; }
+        .cute-photo img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 18px; }
+        .cute-photo:hover { transform: scale(1.15) translateY(-10px) !important; z-index: 100; box-shadow: 0 15px 30px rgba(255, 126, 179, 0.6); }
+
         .side-photo {
             position: absolute; background: var(--white); padding: 6px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.15); border-radius: 50%;
@@ -130,27 +137,10 @@
         }
         @media(max-width: 500px) { .side-photo { width: 65px; } }
 
-        /* شبكة الذكريات (ستايل ديزني كيوت جداً) */
-        .cute-grid {
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;
-            max-width: 900px; margin: 0 auto; padding: 20px;
-        }
-        .cute-photo {
-            background: var(--white); padding: 8px; border-radius: 25px;
-            box-shadow: 0 10px 20px rgba(176, 136, 249, 0.3);
-            width: calc(25% - 20px); min-width: 100px;
-            transition: 0.4s ease;
-            border: 4px solid var(--primary);
-        }
-        .cute-photo:nth-child(even) { border-color: var(--secondary); border-radius: 35px 10px 35px 10px; }
-        .cute-photo:nth-child(3n) { border-color: #ffd700; border-radius: 10px 35px 10px 35px; }
-        .cute-photo img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 18px; }
-        .cute-photo:hover { transform: scale(1.15) translateY(-10px) !important; z-index: 100; box-shadow: 0 15px 30px rgba(255, 126, 179, 0.6); }
+        .hidden-btn { display: none; }
+        .hidden-btn.show { display: block; animation: popIn 0.5s ease; margin-top: 30px; }
+        @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
-        .hidden-btn { opacity: 0; pointer-events: none; transition: 1.5s; }
-        .hidden-btn.show { opacity: 1; pointer-events: auto; }
-
-        /* زرار الموسيقى */
         #music-toggle {
             position: fixed; top: 20px; right: 20px; z-index: 1000;
             background: var(--white); border: 3px solid var(--secondary);
@@ -161,7 +151,6 @@
         }
         #music-toggle.playing { background: var(--secondary); border-color: var(--white); }
 
-        /* تنسيق الرسالة */
         .typewriter-title { text-align: center; color: var(--primary); font-weight: 800; font-size: 2rem; margin-bottom: 20px; text-shadow: 2px 2px 0 var(--white); }
         .typewriter-body { text-align: right; font-weight: 600; font-size: 1.2rem; line-height: 2.2; }
     </style>
@@ -185,7 +174,6 @@
         <input type="text" id="pass-input" class="pass-input" placeholder="مثال: 11/9 أو 2022" dir="rtl">
         <p id="error-msg" style="color: white; display: none; font-size: 1rem; font-weight: bold; margin-top: 15px; background: var(--primary); padding: 5px 20px; border-radius: 20px;">الرمز غلط يا عسولة.. جربي تاني!</p>
         
-        <!-- الزرار الأصلي لروان -->
         <button type="button" class="btn-outline" onclick="checkPassword()">✨ افتحي المفاجأة ✨</button>
     </div>
 
@@ -252,11 +240,10 @@
             <div class="cute-photo" style="transform: rotate(-5deg);"><img src="photo24.jpg"></div>
         </div>
 
-        <!-- زرار روان الأصلي اللي بينقل للفيديو -->
         <button type="button" class="btn-outline" onclick="nextSec('sec-memories', 'sec-video')">شوفى الفيديو 🎬</button>
     </div>
 
-    <!-- 6. شاشة الفيديو (رجعت زي روان بالظبط عشان البرمجة متضربش) -->
+    <!-- 6. شاشة الفيديو -->
     <div id="sec-video" class="section">
         <h1 class="main-title" style="font-size: 3.5rem; margin-bottom: 5px;">A Moment For You</h1>
         <p class="subtitle">✨ a special video message ✨</p>
@@ -301,13 +288,13 @@
         <button type="button" class="btn-outline" onclick="location.reload()">↻ عيدي من الأول</button>
     </div>
 
-    <!-- أكواد الجافاسكريبت (نفس كود روان بالمللي) -->
+    <!-- جافاسكريبت خام وبدائي عشان يشتغل على أي متصفح في الدنيا -->
     <script>
-        // الأشكال الطايرة في الخلفية
+        // الأشكال الطايرة
         var starsContainer = document.getElementById('stars');
         var emojis = ['💖', '⭐', '🌸', '👑', '✨', '🎈'];
-        for (let i = 0; i < 35; i++) {
-            let star = document.createElement('div');
+        for (var k = 0; k < 35; k++) {
+            var star = document.createElement('div');
             star.className = 'shape';
             star.innerText = emojis[Math.floor(Math.random() * emojis.length)];
             star.style.fontSize = (Math.random() * 20 + 20) + 'px';
@@ -315,48 +302,50 @@
             star.style.top = Math.random() * 100 + '%';
             star.style.animationDuration = (Math.random() * 8 + 8) + 's';
             star.style.animationDelay = Math.random() * 5 + 's';
-            starsContainer.appendChild(star);
+            if (starsContainer) { starsContainer.appendChild(star); }
         }
 
-        // دالة التنقل الأصلية
+        // التنقل بين الصفحات
         function nextSec(currentId, nextId) {
-            document.getElementById(currentId).classList.remove('active');
+            var currentElem = document.getElementById(currentId);
+            var nextElem = document.getElementById(nextId);
+            if (currentElem) { currentElem.className = 'section'; }
             setTimeout(function() {
                 window.scrollTo(0, 0); 
-                document.getElementById(nextId).classList.add('active');
-                
-                if (nextId === 'sec-letter') startTypewriter();
-                if (nextId === 'sec-outro') startOutroAnimation();
+                if (nextElem) { nextElem.className = 'section active'; }
+                if (nextId === 'sec-letter') { startTypewriter(); }
+                if (nextId === 'sec-outro') { startOutroAnimation(); }
             }, 800); 
         }
 
-        // فحص الباسورد الأصلي
+        // فحص الباسورد (مكتوب بطريقة قديمة عشان يشتغل على أي تليفون)
         function checkPassword() {
-            var pass = document.getElementById('pass-input').value;
-            if (pass.includes('11') || pass.includes('9') || pass.includes('2022') || pass.includes('١١') || pass.includes('٩') || pass.includes('خ')) {
-                document.getElementById('error-msg').style.display = 'none';
-                document.getElementById('music-toggle').style.display = 'flex';
+            var passInput = document.getElementById('pass-input');
+            var errorMsg = document.getElementById('error-msg');
+            var musicToggle = document.getElementById('music-toggle');
+            
+            if (!passInput) return;
+            
+            var pass = passInput.value;
+            
+            if (pass.indexOf('11') !== -1 || pass.indexOf('9') !== -1 || pass.indexOf('2022') !== -1 || pass.indexOf('١١') !== -1 || pass.indexOf('٩') !== -1 || pass.indexOf('خ') !== -1) {
+                if (errorMsg) { errorMsg.style.display = 'none'; }
+                if (musicToggle) { musicToggle.style.display = 'flex'; }
                 nextSec('sec-password', 'sec-gift');
             } else {
-                document.getElementById('error-msg').style.display = 'block';
+                if (errorMsg) { errorMsg.style.display = 'block'; }
             }
         }
 
-        // فتح الهدية الأصلي
+        // فتح الهدية
         function openGift() {
-            try {
-                if (typeof confetti !== 'undefined') {
-                    confetti({ particleCount: 150, spread: 80, origin: { y: 0.5 }, colors: ['#ffffff', '#ff7eb3', '#b088f9'] });
-                }
-            } catch(e) {}
-            
             var audio = document.getElementById('bgMusic');
             var btn = document.getElementById('music-toggle');
             if (audio) {
                 var playPromise = audio.play();
                 if (playPromise !== undefined) {
                     playPromise.then(function() {
-                        if (btn) btn.classList.add('playing');
+                        if (btn) btn.className = 'playing';
                     }).catch(function(e) {});
                 }
             }
@@ -371,13 +360,93 @@
             
             if (audio.paused) {
                 audio.play(); 
-                musicBtn.classList.add('playing');
+                musicBtn.className = 'playing';
+                musicBtn.style.background = 'var(--primary)';
+                musicBtn.style.borderColor = 'var(--white)';
             } else {
                 audio.pause(); 
-                musicBtn.classList.remove('playing');
+                musicBtn.className = '';
+                musicBtn.style.background = 'var(--white)';
+                musicBtn.style.borderColor = 'var(--secondary)';
             }
         }
 
-        // كود الفيديو الأصلي لروان (اللي كان بيعلق لما شيلناه)
+        // كود الفيديو 
         var myVideo = document.getElementById('myVideo');
-        var bgMusic = document.getElementById('bgMusic'
+        var bgMusic = document.getElementById('bgMusic');
+        var musicBtn = document.getElementById('music-toggle');
+        
+        if (myVideo && bgMusic) {
+            myVideo.addEventListener('play', function() {
+                bgMusic.pause();
+                if (musicBtn) { musicBtn.className = ''; musicBtn.style.background = 'var(--white)'; musicBtn.style.borderColor = 'var(--secondary)'; }
+            });
+            myVideo.addEventListener('pause', function() {
+                bgMusic.play();
+                if (musicBtn) { musicBtn.className = 'playing'; musicBtn.style.background = 'var(--primary)'; musicBtn.style.borderColor = 'var(--white)'; }
+            });
+            myVideo.addEventListener('ended', function() {
+                bgMusic.play();
+                if (musicBtn) { musicBtn.className = 'playing'; musicBtn.style.background = 'var(--primary)'; musicBtn.style.borderColor = 'var(--white)'; }
+            });
+        }
+
+        // رسالة خديجة
+        var titleText = "يا خديجة يا قمر، يا أحلى أميرة صغيرة في العيلة كلها! 👑💖";
+        var bodyText = "النهاردة أحلى يوم في السنة عشان ده يوم ميلادك يا عسولة. كل سنة وأنتِ طيبة وبتكبري قدام عينينا وبتملي البيت ضحك ولعب.\n\nيا رب دايماً أشوفك مبسوطة وناجحة وأحلى بنوتة في الدنيا، وتفضلي دايماً ضحكتك منورة حياتنا. بحبك جداً يا أحلى خديجة! 🎉🎂🎁🎈";
+        
+        var isTyping = false;
+        var i_t = 0;
+        var j_t = 0;
+
+        function startTypewriter() {
+            if (isTyping) return;
+            isTyping = true;
+            var container = document.getElementById('typewriter-container');
+            if (!container) return;
+            container.innerHTML = '<div id="tw-title" class="typewriter-title"></div><div id="tw-body" class="typewriter-body"></div>';
+            typeTitle();
+        }
+
+        function typeTitle() {
+            var titleEl = document.getElementById('tw-title');
+            if (titleEl && i_t < titleText.length) {
+                titleEl.innerHTML += titleText.charAt(i_t);
+                i_t++;
+                setTimeout(typeTitle, 40);
+            } else {
+                setTimeout(typeBody, 400);
+            }
+        }
+
+        function typeBody() {
+            var bodyEl = document.getElementById('tw-body');
+            if (bodyEl && j_t < bodyText.length) {
+                var char = bodyText.charAt(j_t);
+                bodyEl.innerHTML += (char === '\n') ? '<br>' : char;
+                j_t++;
+                setTimeout(typeBody, 35);
+            } else {
+                var btnMem = document.getElementById('btn-memories');
+                if (btnMem) { btnMem.className += ' show'; }
+            }
+        }
+
+        // شاشة النهاية
+        var outroTitles = ["Happy Birthday", "Our Princess", "We Love You"];
+        var titleIdx = 0;
+        function startOutroAnimation() {
+            setInterval(function() {
+                var titleEl = document.getElementById('outro-title');
+                if (!titleEl) return;
+                titleEl.style.opacity = 0;
+                setTimeout(function() {
+                    titleIdx = (titleIdx + 1) % outroTitles.length;
+                    titleEl.innerText = outroTitles[titleIdx];
+                    titleEl.style.opacity = 1;
+                }, 1000); 
+            }, 4000); 
+        }
+    </script>
+</body>
+</html>
