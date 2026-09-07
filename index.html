@@ -128,7 +128,7 @@
         
         @media(max-width: 500px) { .side-photo { width: 65px; } }
 
-        /* شبكة الذكريات */
+        /* شبكة الذكريات (16 صورة) */
         .polaroid-grid {
             display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;
             max-width: 800px; margin: 0 auto; padding: 20px;
@@ -174,12 +174,12 @@
     <div id="music-toggle" onclick="toggleMusic()">🎵</div>
 
     <div id="sec-password" class="section active">
-        <p class="subtitle">🎈 يوم خديجة 🎈</p>
+        <p class="subtitle">🎈 عيد ميلاد العفريته الصغيره 🎈</p>
         <h1 class="main-title">Her Special Day</h1>
         <h1 class="main-title" style="font-size: 3rem;">is Coming</h1>
         
         <p style="font-family: 'Cairo', sans-serif; font-size: 1.2rem; color: var(--text-main); margin-top: 25px; font-weight: bold;">
-            اكتبي تاريخ ميلاد عروستي القمر.. 🗝️
+            اكتبي تاريخ ميلاد العسل القمر.. 🗝️
         </p>
         
         <input type="text" id="pass-input" class="pass-input" placeholder="مثال: 11/9 أو 2022" dir="rtl">
@@ -225,7 +225,7 @@
 
     <div id="sec-memories" class="section">
         <h1 class="main-title" style="font-size: 3.5rem; margin-bottom: 5px;">Our Memories</h1>
-        <p class="subtitle">📸 أحلى لحظات مع موزتي 📸</p>
+        <p class="subtitle">📸 أحلى لحظات دودو العسل 📸</p>
         
         <div class="polaroid-grid">
             <div class="polaroid" style="transform: rotate(-6deg);"><img src="photo9.jpg"></div>
@@ -244,7 +244,6 @@
             <div class="polaroid" style="transform: rotate(3deg);"><img src="photo22.jpg"></div>
             <div class="polaroid" style="transform: rotate(7deg);"><img src="photo23.jpg"></div>
             <div class="polaroid" style="transform: rotate(-5deg);"><img src="photo24.jpg"></div>
-<div class="polaroid" style="transform: rotate(-5deg);"><img src="photo25.jpg"></div>
         </div>
 
         <button class="btn-outline" onclick="nextSec('sec-memories', 'sec-wishes')">أمنياتي ليكي ✨</button>
@@ -311,8 +310,12 @@
             if (pass.includes('11') || pass.includes('١١') || pass.includes('9') || pass.includes('٩') || pass.includes('2022') || pass.includes('k') || pass.includes('خ')) {
                 document.getElementById('error-msg').style.display = 'none';
                 document.getElementById('music-toggle').style.display = 'flex';
-                // فرقعه في الباسورد كبداية للبهجة
-                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                
+                // حماية لكود الفرقعة
+                try {
+                    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                } catch(e) { console.log(e); }
+                
                 nextSec('sec-password', 'sec-gift');
             } else {
                 document.getElementById('error-msg').style.display = 'block';
@@ -320,14 +323,16 @@
         }
 
         function openGift(el) {
-            // فرقعة جامدة جداً للهدية
-            var end = Date.now() + (2 * 1000);
-            var colors = ['#ff1493', '#ff8c00', '#ffd700', '#87ceeb'];
-            (function frame() {
-                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
-                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
-                if (Date.now() < end) { requestAnimationFrame(frame); }
-            }());
+            // حماية لكود الفرقعة الكبير
+            try {
+                var end = Date.now() + (2 * 1000);
+                var colors = ['#ff1493', '#ff8c00', '#ffd700', '#87ceeb'];
+                (function frame() {
+                    confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
+                    confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
+                    if (Date.now() < end) { requestAnimationFrame(frame); }
+                }());
+            } catch(e) { console.log(e); }
             
             let audio = document.getElementById('bgMusic');
             let musicBtn = document.getElementById('music-toggle');
@@ -384,6 +389,4 @@
                     j++;
                     setTimeout(typeBody, 35);
                 } else {
-                    document.getElementById('btn-memories').classList.add('show');
-                    // فرقعة صغيرة لما الرسالة تخلص
-                    confetti({ particleCount: 100, spread: 70, origin:
+          
