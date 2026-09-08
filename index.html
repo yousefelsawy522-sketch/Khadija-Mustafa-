@@ -77,7 +77,7 @@
             text-shadow: 3px 3px 0px var(--white), 0 8px 15px rgba(255, 126, 179, 0.3); 
         }
 
-        /* حقل الباسورد زي ما هو شفاف */
+        /* حقل الباسورد شفاف */
         .pass-input {
             background: rgba(255, 255, 255, 0.4); 
             backdrop-filter: blur(5px); 
@@ -102,7 +102,9 @@
             50% { transform: translateY(-20px); filter: drop-shadow(0 20px 15px rgba(0,0,0,0.2)); }
         }
 
-        /* صور الذكريات الكبيرة */
+        /* ========================================================
+           تعديل صور الذكريات: خليناها أطول (طولية) عشان تبين الأشخاص كاملين
+           ======================================================== */
         .cute-grid {
             display: flex; flex-wrap: wrap; justify-content: center; gap: 25px;
             max-width: 950px; margin: 0 auto; padding: 20px;
@@ -117,7 +119,10 @@
         }
         .cute-photo:nth-child(even) { border-color: var(--secondary); border-radius: 35px 10px 35px 10px; }
         .cute-photo:nth-child(3n) { border-color: #ffd700; border-radius: 10px 35px 10px 35px; }
-        .cute-photo img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 18px; }
+        
+        /* التعديل هنا: نسبة 3/4 للطول عشان الصورة تظهر بالكامل */
+        .cute-photo img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 18px; }
+        
         .cute-photo:hover { transform: scale(1.2) translateY(-10px) !important; z-index: 100; box-shadow: 0 15px 30px rgba(255, 126, 179, 0.6); }
 
         /* صور الجنب */
@@ -165,7 +170,6 @@
         }
         #music-toggle.playing { background: var(--secondary); border-color: var(--white); }
 
-        /* تعديل النصوص الآلية (بدون مربع) */
         .typewriter-title { text-align: center; color: var(--primary); font-weight: 800; font-size: 2rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(255,255,255,0.9); }
         .typewriter-body { text-align: right; font-weight: 800; font-size: 1.3rem; line-height: 2.2; position: relative; z-index: 50; text-shadow: 2px 2px 4px rgba(255,255,255,0.9); }
     </style>
@@ -186,7 +190,7 @@
             اكتبي تاريخ ميلاد أحلى بنوتة.. 🗝️
         </p>
         
-        <input type="text" id="pass-input" class="pass-input" placeholder="" dir="rtl">
+        <input type="text" id="pass-input" class="pass-input" placeholder="تاريخ ميلاد ديچا" dir="rtl">
         <p id="error-msg" style="color: white; display: none; font-size: 1rem; font-weight: bold; margin-top: 15px; background: var(--primary); padding: 5px 20px; border-radius: 20px; position: relative; z-index: 100;">الرمز غلط يا عسولة.. جربي تاني!</p>
         
         <button type="button" class="btn-outline" onclick="checkPassword()">✨ افتحي المفاجأة ✨</button>
@@ -213,7 +217,6 @@
         <p class="subtitle">💖 رسالة مخصوصة 💖</p>
         <h1 class="main-title" style="font-size: 4.5rem;">Your<br>Day</h1>
         
-        <!-- تعديل: شيلنا المربع تماماً وضفنا ضل أبيض عشان الكلام يبان -->
         <p style="font-size: 1.4rem; font-weight: 800; color: var(--text-main); position: relative; z-index: 50; max-width: 500px; line-height: 1.8; margin-top: 20px; text-shadow: 2px 2px 5px rgba(255,255,255,0.9);" dir="rtl">
             كل سنة وأنتِ منورة حياتنا يا خديجة.. ده أحلى يوم عشان اليوم اللي نورتي فيه الدنيا. يا أحلى وأجمل بنوتة في العيلة كلها! 👑🤍
         </p>
@@ -225,9 +228,8 @@
     <div id="sec-letter" class="section" style="padding: 20px; max-width: 750px; margin: 0 auto;">
         <h1 class="main-title" style="font-size: 3.5rem; margin-bottom: 30px;">Happy Birthday</h1>
         
-        <!-- تعديل: شيلنا المربع بالكامل -->
         <div id="typewriter-container" style="padding: 20px; min-height: 250px; width: 100%; position: relative; z-index: 50;" dir="rtl">
-            <!-- النص هيتكتب هنا طاير في الهوا -->
+            <!-- النص هيتكتب هنا -->
         </div>
 
         <button type="button" class="btn-outline hidden-btn" id="btn-memories" onclick="nextSec('sec-letter', 'sec-memories')">ذكرياتنا الحلوة ☁️</button>
@@ -265,7 +267,6 @@
         <h1 class="main-title" style="font-size: 3.5rem; margin-bottom: 5px;">A Moment For You</h1>
         <p class="subtitle">✨ a special video message ✨</p>
         
-        <!-- تعديل: خلينا الفيديو من غير مربع أبيض وراه، الإطار بس على الفيديو نفسه -->
         <div style="max-width: 500px; width: 90%; margin: 0 auto; position: relative; z-index: 50;">
             <video id="myVideo" controls style="width: 100%; display: block; border-radius: 15px; border: 4px solid var(--primary); box-shadow: 0 10px 30px rgba(176,136,249,0.3);">
                 <source src="video1.mp4" type="video/mp4">
@@ -279,7 +280,6 @@
     <div id="sec-wishes" class="section" style="padding: 20px; max-width: 600px; margin: 0 auto;">
         <h1 class="main-title" style="font-size: 3.5rem; margin-bottom: 30px;">Birthday Wishes</h1>
         
-        <!-- تعديل: شيلنا المربع تماماً -->
         <div style="padding: 20px; position: relative; z-index: 50; text-shadow: 2px 2px 5px rgba(255,255,255,0.9);">
             <p style="font-size: 1.8rem; font-weight: 800; text-align: center; color: var(--secondary);">عيد ميلاد سعيد يا أميرتنا 👑</p>
             
@@ -298,7 +298,6 @@
     <div id="sec-outro" class="section">
         <h1 id="outro-title" class="main-title" style="font-size: 4.5rem; transition: opacity 1s ease-in-out;">Happy Birthday</h1>
         
-        <!-- تعديل: شيلنا المربع -->
         <p style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); line-height: 2; margin-top: 20px; position: relative; z-index: 50; text-shadow: 2px 2px 5px rgba(255,255,255,0.9);" dir="rtl">
             شكراً لأنكِ أحلى بنوتة.<br>
             يا رب الهدية البسيطة دي تفرحك.
@@ -308,7 +307,6 @@
         <button type="button" class="btn-outline" onclick="location.reload()">↻ عيدي من الأول</button>
     </div>
 
-    <!-- جافاسكريبت متين 100% -->
     <script>
         var starsContainer = document.getElementById('stars');
         var emojis = ['💖', '⭐', '🌸', '👑', '✨', '🎈'];
